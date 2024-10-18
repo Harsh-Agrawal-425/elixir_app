@@ -5,11 +5,10 @@ defmodule Forum.Accounts do
 
   import Ecto.Query, warn: false
   alias Forum.Repo
-
   alias Forum.Accounts.User
 
   @doc """
-  Returns the list of users.
+  Returns the list of users with posts preloaded.
 
   ## Examples
 
@@ -19,10 +18,11 @@ defmodule Forum.Accounts do
   """
   def list_users do
     Repo.all(User)
+    |> Repo.preload(:posts)  # Preload posts for each user
   end
 
   @doc """
-  Gets a single user.
+  Gets a single user with posts preloaded.
 
   Raises `Ecto.NoResultsError` if the User does not exist.
 
@@ -35,7 +35,7 @@ defmodule Forum.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id), do: Repo.get!(User, id) |> Repo.preload(:posts)
 
   @doc """
   Creates a user.
