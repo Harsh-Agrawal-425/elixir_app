@@ -1,0 +1,5 @@
+<ul>
+  <%= for user <- @users do %>
+    <li><%= user.name %> (age: <%= user.age %>)</li>
+  <% end %>
+</ul>
